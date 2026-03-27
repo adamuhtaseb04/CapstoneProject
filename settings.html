@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="src/nav-style.css">
+    <link rel="stylesheet" href="src/dropdown.css">
+</head>
+<body>
+<header>
+    <nav>
+
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="dashboard.html">Student Dashboard</a></li>
+            <li><a href="studyplan.html">Generated Study Plan</a></li>
+            <li><a href="progress.html">Progress Tracking</a></li>
+            <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="help.html">Help</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h2>Settings</h2>
+</main>
+<div class="container">
+    <div class="center-item">
+<h3>Profile Information</h3>
+
+<div>
+    <label for="name">Full Name:</label>
+    <br>
+    <textarea id="name" name="name" rows="1" cols="20" placeholder="Name"></textarea>
+</div>
+
+<div>
+    <label for="email">Email Address:</label>
+    <br>
+    <textarea id="email" name="email" rows="1" cols="20" placeholder="Email"></textarea>
+</div>
+
+<div>
+    <label for="university">University:</label>
+    <br>
+    <textarea id="university" name="university" rows="1" cols="20" placeholder="University"></textarea>
+</div>
+
+<div>
+    <label for="major">Major:</label>
+    <br>
+    <textarea id="major" name="major" rows="1" cols="20" placeholder="Major"></textarea>
+</div>
+
+<h3>Study Preferences</h3>
+
+<label for="hours">Preferred Study Hours per Day</label>
+<select name="hours" id="hours">
+    <option value="1">1 hr</option>
+    <option value="2">2 hrs</option>
+    <option value="3">3 hrs</option>
+    <option value="4">4 hrs</option>
+</select>
+
+<label for="break_length">Break Duration</label>
+<select name="break_length" id="break_length">
+    <option value="5">5 minutes</option>
+    <option value="10">10 minutes</option>
+    <option value="15">15 minutes</option>
+    <option value="30">30 minutes</option>
+</select>
+
+<h4>Notification Preferences</h4>
+
+<form action="/submit-answers" method="POST">
+    <label>
+        <input type="checkbox" name="reminder" id="reminder"> Study session reminders
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="due_dates" id="due_dates"> Assignment due date alerts
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="report" id="report"> Weekly progress reports
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="achievements" id="achievements"> Goal achievement notifications
+    </label>
+
+</form>
+
+<h3>Study Plan Settings</h3>
+
+<h4>Workload Intensity</h4>
+
+<form action="/submit-answers" method="POST">
+    <label>
+        <input type="checkbox" name="light" id="light"> Light - Relaxed pace with extra time
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="moderate" id="moderate"> Moderate - Balanced workload
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="intensive" id="intensive"> Intensive - Maximum productivity
+    </label>
+
+</form>
+
+<h4>Auto-adjust Schedule</h4>
+
+<form action="/submit-answers" method="POST">
+    <label>
+        <input type="checkbox" name="yes" id="yes"> Automatically adjust based on completed tasks
+    </label>
+
+</form>
+
+<h3>Data & Export</h3>
+
+<h3>Account & Security</h3>
+    </div>
+</div>
+</body>
+</html>

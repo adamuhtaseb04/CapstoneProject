@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaire</title>
+    <link rel="stylesheet" href="src/dropdown.css">
+</head>
+<body>
+<div class="container">
+    <div class="center-item">
+    <h1>Academic Information</h1>
+
+    <label for="major">Choose a Major:</label>
+    <select name="major" id="major">
+        <option value="cit">CIT</option>
+        <option value="english">English</option>
+        <option value="math">Math</option>
+        <option value="history">History</option>
+    </select>
+
+    <label for="year">Choose your Year:</label>
+    <select name="year" id="year">
+        <option value="freshman">Freshman</option>
+        <option value="sophmore">Sophmore</option>
+        <option value="junior">Junior</option>
+        <option value="senior">Senior</option>
+    </select>
+
+
+
+    <div>
+        <label for="courses">Please provide your Courses:</label>
+        <br>
+        <textarea id="courses" name="courses" rows="4" cols="50" placeholder="Type your courses here"></textarea>
+    </div>
+
+    <h1>Weekly Availability</h1>
+
+    <label for="study_hours">Hours per week studying:</label>
+    <select name="study hours" id="study_hours">
+        <option value="5">5 hours</option>
+        <option value="10">10 hours</option>
+        <option value="15">15 hours</option>
+        <option value="20">20 hours</option>
+    </select>
+
+    <label for="study_times">Prefered study times:</label>
+    <select name="study times" id="study_times">
+        <option value="12-4">12 a.m. to 4 a.m.</option>
+        <option value="5-8">5 a.m. to 8 a.m.</option>
+        <option value="8-11:59">8 a.m. to 11:59 a.m.</option>
+        <option value="12-4">12 p.m. to 4 p.m.</option>
+        <option value="5-8">5 p.m. to 8 p.m.</option>
+        <option value="8-11:59">8 p.m. to 11:59 p.m.</option>
+    </select>
+
+    <h2>Available Days (check all that apply)</h2>
+
+    <form action="/submit-answers" method="POST">
+        <label>
+            <input type="checkbox" name="monday" id="monday"> Monday
+        </label>
+        <label>
+            <input type="checkbox" name="tuesday" id="tuesday"> Tuesday
+        </label>
+        <label>
+            <input type="checkbox" name="wednesday" id="wednesday"> Wednesday
+        </label>
+        <label>
+            <input type="checkbox" name="thursday" id="thursday"> Thursday
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="friday" id="friday"> Friday
+        </label>
+        <label>
+            <input type="checkbox" name="saturday" id="saturday"> Saturday
+        </label>
+        <label>
+            <input type="checkbox" name="sunday" id="sunday"> Sunday
+        </label>
+    </form>
+
+    <h1>Academic Goals</h1>
+
+    <label for="gpa">Target GPA:</label>
+    <select name="gpa" id="gpa">
+        <option value="1">1.0</option>
+        <option value="2">2.0</option>
+        <option value="3">3.0</option>
+        <option value="4">4.0</option>
+    </select>
+
+    <div>
+        <label for="dates">Upcoming important dates:</label>
+        <br>
+        <textarea id="dates" name="dates" rows="4" cols="50" placeholder="Type your dates here"></textarea>
+    </div>
+
+    <label for="goal">Primary Goal:</label>
+    <select name="goal" id="goal">
+        <option value="gpa">To get a higher GPA.</option>
+        <option value="pass">To pass a class.</option>
+        <option value="learn">To learn better time management.</option>
+        <option value="grad">To graduate.</option>
+        <option value="other">Other</option>
+    </select>
+
+    <h1>Study Preferences</h1>
+
+    <h2>Preferred study methods (check all that apply)</h2>
+
+    <form action="/submit-answers" method="POST">
+        <label>
+            <input type="checkbox" name="reading" id="reading"> Reading & note-taking
+        </label>
+        <label>
+            <input type="checkbox" name="flashcards" id="flashcards"> Flashcards
+        </label>
+        <label>
+            <input type="checkbox" name="video" id="video"> Video tutorials
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="practice" id="practice"> Practice problems
+        </label>
+        <label>
+            <input type="checkbox" name="group" id="group"> Group study
+        </label>
+        <label>
+            <input type="checkbox" name="mind" id="mind"> Mind mapping
+        </label>
+
+    </form>
+
+    <label for="length">Study session length:</label>
+    <select name="length" id="length">
+        <option value="1">1 hr</option>
+        <option value="2">2 hr</option>
+        <option value="3">3 hr</option>
+        <option value="4">4 hr</option>
+    </select>
+
+    <label for="break">Break freguency:</label>
+    <select name="break" id="break">
+        <option value="15">every 15 minutes</option>
+        <option value="30">every 30 minutes</option>
+        <option value="1">every hour</option>
+    </select>
+
+    <h1>Areas for Improvement</h1>
+
+    <div>
+        <label for="challenging">Subjects you find challenging:</label>
+        <br>
+        <textarea id="challenging" name="challenging" rows="4" cols="50" placeholder="List subjects or topics you struggle with"></textarea>
+    </div>
+
+    <h2>Study challenges (check all that apply)</h2>
+
+    <form action="/submit-answers" method="POST">
+        <label>
+            <input type="checkbox" name="procrastination" id="procrastination"> Procrastination
+        </label>
+        <label>
+            <input type="checkbox" name="focus" id="focus"> Focus & Concentration
+        </label>
+        <label>
+            <input type="checkbox" name="organization" id="organization"> Note organization
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="time" id="time"> Time management
+        </label>
+        <label>
+            <input type="checkbox" name="anxiety" id="anxiety"> Test anxiety
+        </label>
+        <label>
+            <input type="checkbox" name="memory" id="memory"> Memory retention
+        </label>
+
+    </form>
+
+    <div>
+        <button id="submit">Submit</button>
+    </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
