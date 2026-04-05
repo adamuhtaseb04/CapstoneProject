@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Detail</title>
-    <link rel="stylesheet" href="src/nav-style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySmarter | Task Detail</title>
+  <link rel="stylesheet" href="src/nav-style.css">
 </head>
 <body>
-<header>
-    <nav>
-
-        <ul class="nav-links">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="dashboard.html">Student Dashboard</a></li>
-            <li><a href="studyplan.html">Generated Study Plan</a></li>
-            <li><a href="progress.html">Progress Tracking</a></li>
-            <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
-            <li><a href="settings.html">Settings</a></li>
-            <li><a href="help.html">Help</a></li>
-        </ul>
-    </nav>
-</header>
+<header><nav><ul class="nav-links">
+  <li><a href="home.html">Home</a></li><li><a href="dashboard.html">Student Dashboard</a></li><li><a href="studyplan.html">Generated Study Plan</a></li><li><a href="progress.html">Progress Tracking</a></li><li><a href="taskdetail.html">Schedule & Task Detail</a></li><li><a href="settings.html">Settings</a></li><li><a href="help.html">Help</a></li>
+</ul></nav></header>
 <main>
-    <h2>Task Detail</h2>
+  <section class="hero reveal" data-reveal>
+    <span class="kicker">Schedule & Task Detail</span>
+    <h1>Prioritize the next best task</h1>
+    <p></p>
+  </section>
+  <section class="cards-grid" style="margin-top:22px;">
+    <article class="panel reveal delay-1" data-reveal>
+      <span class="badge">High priority</span>
+      <h3>Networking quiz review</h3>
+      <p>Due tomorrow · Estimated 45 minutes · Focus on subnetting and routing tables.</p>
+    </article>
+    <article class="panel reveal delay-2" data-reveal>
+      <span class="badge">Medium priority</span>
+      <h3>Database normalization worksheet</h3>
+      <p>Due Friday · Estimated 60 minutes · Complete first three scenarios and self-check answers.</p>
+    </article>
+    <article class="panel reveal delay-3" data-reveal>
+      <span class="badge">Quick win</span>
+      <h3>Technical writing edits</h3>
+      <p>Due Sunday · Estimated 25 minutes · Improve transitions and clean up references.</p>
+    </article>
+  </section>
 </main>
-
-
+<script src="src/ui.js" defer></script>
 </body>
 </html>

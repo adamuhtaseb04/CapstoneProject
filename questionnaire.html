@@ -1,193 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Questionnaire</title>
-    <link rel="stylesheet" href="src/dropdown.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySmarter | Questionnaire</title>
+  <link rel="stylesheet" href="src/dropdown.css">
 </head>
 <body>
+<header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="dashboard.html">Student Dashboard</a></li>
+      <li><a href="studyplan.html">Generated Study Plan</a></li>
+      <li><a href="progress.html">Progress Tracking</a></li>
+      <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="help.html">Help</a></li>
+    </ul>
+  </nav>
+</header>
 <div class="container">
-    <div class="center-item">
-    <h1>Academic Information</h1>
+  <div class="form-shell reveal" data-reveal>
+    <span class="kicker">Schedule Builder</span>
+    <h1>Academic questionnaire</h1>
+    <p></p>
 
-    <label for="major">Choose a Major:</label>
-    <select name="major" id="major">
-        <option value="cit">CIT</option>
-        <option value="english">English</option>
-        <option value="math">Math</option>
-        <option value="history">History</option>
-    </select>
-
-    <label for="year">Choose your Year:</label>
-    <select name="year" id="year">
-        <option value="freshman">Freshman</option>
-        <option value="sophmore">Sophmore</option>
-        <option value="junior">Junior</option>
-        <option value="senior">Senior</option>
-    </select>
-
-
-
-    <div>
-        <label for="courses">Please provide your Courses:</label>
-        <br>
-        <textarea id="courses" name="courses" rows="4" cols="50" placeholder="Type your courses here"></textarea>
+    <div class="form-grid">
+      <div class="field"><label for="major">Choose a Major</label><select id="major"><option>CIT</option><option>English</option><option>Math</option><option>History</option></select></div>
+      <div class="field"><label for="year">Choose your Year</label><select id="year"><option>Freshman</option><option>Sophomore</option><option>Junior</option><option>Senior</option></select></div>
+      <div class="full"><label for="courses">Please provide your Courses</label><textarea id="courses" placeholder="Type your courses here"></textarea></div>
+      <div class="field"><label for="study_hours">Hours per week studying</label><select id="study_hours"><option>5 hours</option><option>10 hours</option><option>15 hours</option><option>20 hours</option></select></div>
+      <div class="field"><label for="study_times">Preferred study times</label><select id="study_times"><option>12 a.m. to 4 a.m.</option><option>5 a.m. to 8 a.m.</option><option>8 a.m. to 11:59 a.m.</option><option>12 p.m. to 4 p.m.</option><option>5 p.m. to 8 p.m.</option><option>8 p.m. to 11:59 p.m.</option></select></div>
+      <div class="full">
+        <label>Available Days</label>
+        <div class="checkbox-grid">
+          <label class="checkbox-pill"><input type="checkbox"> Monday</label>
+          <label class="checkbox-pill"><input type="checkbox"> Tuesday</label>
+          <label class="checkbox-pill"><input type="checkbox"> Wednesday</label>
+          <label class="checkbox-pill"><input type="checkbox"> Thursday</label>
+          <label class="checkbox-pill"><input type="checkbox"> Friday</label>
+          <label class="checkbox-pill"><input type="checkbox"> Saturday</label>
+          <label class="checkbox-pill"><input type="checkbox"> Sunday</label>
+        </div>
+      </div>
+      <div class="field"><label for="gpa">Target GPA</label><select id="gpa"><option>1.0</option><option>2.0</option><option>3.0</option><option>4.0</option></select></div>
+      <div class="field"><label for="goal">Primary Goal</label><select id="goal"><option>To get a higher GPA</option><option>To pass a class</option><option>To learn better time management</option><option>To graduate</option><option>Other</option></select></div>
+      <div class="full"><label for="dates">Upcoming important dates</label><textarea id="dates" placeholder="Type your dates here"></textarea></div>
+      <div class="full">
+        <label>Preferred study methods</label>
+        <div class="checkbox-grid">
+          <label class="checkbox-pill"><input type="checkbox"> Reading & note-taking</label>
+          <label class="checkbox-pill"><input type="checkbox"> Flashcards</label>
+          <label class="checkbox-pill"><input type="checkbox"> Video tutorials</label>
+          <label class="checkbox-pill"><input type="checkbox"> Practice problems</label>
+          <label class="checkbox-pill"><input type="checkbox"> Group study</label>
+          <label class="checkbox-pill"><input type="checkbox"> Mind mapping</label>
+        </div>
+      </div>
+      <div class="field"><label for="length">Study session length</label><select id="length"><option>1 hr</option><option>2 hr</option><option>3 hr</option><option>4 hr</option></select></div>
+      <div class="field"><label for="break">Break frequency</label><select id="break"><option>Every 15 minutes</option><option>Every 30 minutes</option><option>Every hour</option></select></div>
+      <div class="full"><label for="challenging">Subjects you find challenging</label><textarea id="challenging" placeholder="List subjects or topics you struggle with"></textarea></div>
+      <div class="full">
+        <label>Study challenges</label>
+        <div class="checkbox-grid">
+          <label class="checkbox-pill"><input type="checkbox"> Procrastination</label>
+          <label class="checkbox-pill"><input type="checkbox"> Focus & concentration</label>
+          <label class="checkbox-pill"><input type="checkbox"> Note organization</label>
+          <label class="checkbox-pill"><input type="checkbox"> Time management</label>
+          <label class="checkbox-pill"><input type="checkbox"> Test anxiety</label>
+          <label class="checkbox-pill"><input type="checkbox"> Memory retention</label>
+        </div>
+      </div>
     </div>
 
-    <h1>Weekly Availability</h1>
-
-    <label for="study_hours">Hours per week studying:</label>
-    <select name="study hours" id="study_hours">
-        <option value="5">5 hours</option>
-        <option value="10">10 hours</option>
-        <option value="15">15 hours</option>
-        <option value="20">20 hours</option>
-    </select>
-
-    <label for="study_times">Prefered study times:</label>
-    <select name="study times" id="study_times">
-        <option value="12-4">12 a.m. to 4 a.m.</option>
-        <option value="5-8">5 a.m. to 8 a.m.</option>
-        <option value="8-11:59">8 a.m. to 11:59 a.m.</option>
-        <option value="12-4">12 p.m. to 4 p.m.</option>
-        <option value="5-8">5 p.m. to 8 p.m.</option>
-        <option value="8-11:59">8 p.m. to 11:59 p.m.</option>
-    </select>
-
-    <h2>Available Days (check all that apply)</h2>
-
-    <form action="/submit-answers" method="POST">
-        <label>
-            <input type="checkbox" name="monday" id="monday"> Monday
-        </label>
-        <label>
-            <input type="checkbox" name="tuesday" id="tuesday"> Tuesday
-        </label>
-        <label>
-            <input type="checkbox" name="wednesday" id="wednesday"> Wednesday
-        </label>
-        <label>
-            <input type="checkbox" name="thursday" id="thursday"> Thursday
-        </label>
-        <br>
-        <label>
-            <input type="checkbox" name="friday" id="friday"> Friday
-        </label>
-        <label>
-            <input type="checkbox" name="saturday" id="saturday"> Saturday
-        </label>
-        <label>
-            <input type="checkbox" name="sunday" id="sunday"> Sunday
-        </label>
-    </form>
-
-    <h1>Academic Goals</h1>
-
-    <label for="gpa">Target GPA:</label>
-    <select name="gpa" id="gpa">
-        <option value="1">1.0</option>
-        <option value="2">2.0</option>
-        <option value="3">3.0</option>
-        <option value="4">4.0</option>
-    </select>
-
-    <div>
-        <label for="dates">Upcoming important dates:</label>
-        <br>
-        <textarea id="dates" name="dates" rows="4" cols="50" placeholder="Type your dates here"></textarea>
+    <div class="form-actions">
+      <p class="helper"></p>
+      <button id="submit" type="button" onclick="window.location.href='studyplan.html'">Submit</button>
     </div>
-
-    <label for="goal">Primary Goal:</label>
-    <select name="goal" id="goal">
-        <option value="gpa">To get a higher GPA.</option>
-        <option value="pass">To pass a class.</option>
-        <option value="learn">To learn better time management.</option>
-        <option value="grad">To graduate.</option>
-        <option value="other">Other</option>
-    </select>
-
-    <h1>Study Preferences</h1>
-
-    <h2>Preferred study methods (check all that apply)</h2>
-
-    <form action="/submit-answers" method="POST">
-        <label>
-            <input type="checkbox" name="reading" id="reading"> Reading & note-taking
-        </label>
-        <label>
-            <input type="checkbox" name="flashcards" id="flashcards"> Flashcards
-        </label>
-        <label>
-            <input type="checkbox" name="video" id="video"> Video tutorials
-        </label>
-        <br>
-        <label>
-            <input type="checkbox" name="practice" id="practice"> Practice problems
-        </label>
-        <label>
-            <input type="checkbox" name="group" id="group"> Group study
-        </label>
-        <label>
-            <input type="checkbox" name="mind" id="mind"> Mind mapping
-        </label>
-
-    </form>
-
-    <label for="length">Study session length:</label>
-    <select name="length" id="length">
-        <option value="1">1 hr</option>
-        <option value="2">2 hr</option>
-        <option value="3">3 hr</option>
-        <option value="4">4 hr</option>
-    </select>
-
-    <label for="break">Break freguency:</label>
-    <select name="break" id="break">
-        <option value="15">every 15 minutes</option>
-        <option value="30">every 30 minutes</option>
-        <option value="1">every hour</option>
-    </select>
-
-    <h1>Areas for Improvement</h1>
-
-    <div>
-        <label for="challenging">Subjects you find challenging:</label>
-        <br>
-        <textarea id="challenging" name="challenging" rows="4" cols="50" placeholder="List subjects or topics you struggle with"></textarea>
-    </div>
-
-    <h2>Study challenges (check all that apply)</h2>
-
-    <form action="/submit-answers" method="POST">
-        <label>
-            <input type="checkbox" name="procrastination" id="procrastination"> Procrastination
-        </label>
-        <label>
-            <input type="checkbox" name="focus" id="focus"> Focus & Concentration
-        </label>
-        <label>
-            <input type="checkbox" name="organization" id="organization"> Note organization
-        </label>
-        <br>
-        <label>
-            <input type="checkbox" name="time" id="time"> Time management
-        </label>
-        <label>
-            <input type="checkbox" name="anxiety" id="anxiety"> Test anxiety
-        </label>
-        <label>
-            <input type="checkbox" name="memory" id="memory"> Memory retention
-        </label>
-
-    </form>
-
-    <div>
-        <button id="submit">Submit</button>
-    </div>
-
-    </div>
-
+  </div>
 </div>
-
+<script src="src/ui.js" defer></script>
 </body>
 </html>

@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study plan</title>
-    <link rel="stylesheet" href="src/nav-style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySmarter | Study Plan</title>
+  <link rel="stylesheet" href="src/nav-style.css">
 </head>
 <body>
-<header>
-    <nav>
-
-        <ul class="nav-links">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="dashboard.html">Student Dashboard</a></li>
-            <li><a href="studyplan.html">Generated Study Plan</a></li>
-            <li><a href="progress.html">Progress Tracking</a></li>
-            <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
-            <li><a href="settings.html">Settings</a></li>
-            <li><a href="help.html">Help</a></li>
-        </ul>
-    </nav>
-</header>
+<header><nav><ul class="nav-links">
+  <li><a href="home.html">Home</a></li><li><a href="dashboard.html">Student Dashboard</a></li><li><a href="studyplan.html">Generated Study Plan</a></li><li><a href="progress.html">Progress Tracking</a></li><li><a href="taskdetail.html">Schedule & Task Detail</a></li><li><a href="settings.html">Settings</a></li><li><a href="help.html">Help</a></li>
+</ul></nav></header>
 <main>
-    <h2>Study Plan</h2>
+  <section class="hero reveal" data-reveal>
+    <span class="kicker">Generated Study Plan</span>
+    <h1>Your weekly schedule, redesigned</h1>
+    <p></p>
+  </section>
+  <section class="panel reveal delay-1" data-reveal style="margin-top:22px;">
+    <h2 class="section-title">Monday to Thursday plan</h2>
+    <div class="timeline">
+      <div class="timeline-item"><h3>Monday · 5:00 p.m.</h3><p>Database Systems review, chapter summary, and 20-minute practice quiz.</p></div>
+      <div class="timeline-item"><h3>Tuesday · 6:30 p.m.</h3><p>Networking lab prep with packet tracing exercises and flashcard review.</p></div>
+      <div class="timeline-item"><h3>Wednesday · 4:30 p.m.</h3><p>Writing block for technical report outline and citation cleanup.</p></div>
+      <div class="timeline-item"><h3>Thursday · 7:00 p.m.</h3><p>Mixed review session focused on weak topics and overdue tasks.</p></div>
+    </div>
+  </section>
 </main>
-
-
+<script src="src/ui.js" defer></script>
 </body>
 </html>

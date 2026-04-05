@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/webstorm-icon-logo.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login Page</title>
+  <title>StudySmarter | Login</title>
   <link rel="stylesheet" href="src/style.css">
 </head>
-
-
 <body>
-    <div class="login-container">
-        <form id="loginform">
-          <h2>Login</h2>
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" placeholder="Username" required>
+  <div class="login-container">
+    <form id="loginform">
+      <span class="kicker">Smart Study Planner</span>
+      <h2>Welcome back</h2>
+      <p>Sign in to manage your study plan, stay on top of deadlines, and keep your weekly progress moving.</p>
 
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Password" required>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
-          <button type="submit">Login</button>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-        </form>
-    </div>
+      <button type="submit">Login</button>
+      <p class="helper">Demo login redirects directly to the home dashboard.</p>
+    </form>
+  </div>
   <script src="src/main.js" defer></script>
 </body>
 </html>

@@ -1,30 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="src/nav-style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySmarter | Dashboard</title>
+  <link rel="stylesheet" href="src/nav-style.css">
 </head>
 <body>
-<header>
-    <nav>
-
-        <ul class="nav-links">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="dashboard.html">Student Dashboard</a></li>
-            <li><a href="studyplan.html">Generated Study Plan</a></li>
-            <li><a href="progress.html">Progress Tracking</a></li>
-            <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
-            <li><a href="settings.html">Settings</a></li>
-            <li><a href="help.html">Help</a></li>
-        </ul>
-    </nav>
-</header>
+<header><nav><ul class="nav-links">
+  <li><a href="home.html">Home</a></li><li><a href="dashboard.html">Student Dashboard</a></li><li><a href="studyplan.html">Generated Study Plan</a></li><li><a href="progress.html">Progress Tracking</a></li><li><a href="taskdetail.html">Schedule & Task Detail</a></li><li><a href="settings.html">Settings</a></li><li><a href="help.html">Help</a></li>
+</ul></nav></header>
 <main>
-    <h2>Dashboard</h2>
+  <section class="hero reveal" data-reveal>
+    <span class="kicker">Student Dashboard</span>
+    <h1>Overview of your week</h1>
+    <p></p>
+  </section>
+  <section class="two-col" style="margin-top:22px;">
+    <div class="panel reveal delay-1" data-reveal>
+      <h2 class="section-title">This week at a glance</h2>
+      <div class="cards-grid">
+        <div class="mini-card"><div class="stat-label">Focus sessions</div><div class="stat-value">9</div></div>
+        <div class="mini-card"><div class="stat-label">Assignments due</div><div class="stat-value">3</div></div>
+        <div class="mini-card"><div class="stat-label">Current streak</div><div class="stat-value">6 days</div></div>
+        <div class="mini-card"><div class="stat-label">Goal progress</div><div class="stat-value">74%</div></div>
+      </div>
+      <div class="table-card" style="margin-top:18px;">
+        <table>
+          <thead><tr><th>Course</th><th>Next Task</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Database Systems</td><td>Normalize practice set</td><td>In progress</td></tr>
+            <tr><td>Networking</td><td>Quiz review</td><td>Scheduled</td></tr>
+            <tr><td>Technical Writing</td><td>Outline draft</td><td>Needs review</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel reveal delay-2" data-reveal>
+      <h2 class="section-title">Study distribution</h2>
+      <div class="list-clean">
+        <li><strong>Databases</strong><div class="progress-bar" style="--value: 82%;"><span></span></div></li>
+        <li><strong>Networking</strong><div class="progress-bar" style="--value: 68%;"><span></span></div></li>
+        <li><strong>Technical Writing</strong><div class="progress-bar" style="--value: 56%;"><span></span></div></li>
+        <li><strong>General Review</strong><div class="progress-bar" style="--value: 43%;"><span></span></div></li>
+      </div>
+    </div>
+  </section>
 </main>
-
-
+<script src="src/ui.js" defer></script>
 </body>
 </html>

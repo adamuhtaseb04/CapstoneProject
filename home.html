@@ -1,66 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="src/nav-style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySmarter | Home</title>
+  <link rel="stylesheet" href="src/nav-style.css">
 </head>
 <body>
-    <header>
-        <nav>
+<header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="dashboard.html">Student Dashboard</a></li>
+      <li><a href="studyplan.html">Generated Study Plan</a></li>
+      <li><a href="progress.html">Progress Tracking</a></li>
+      <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="help.html">Help</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <section class="hero reveal" data-reveal>
+    <span class="kicker">Personalized planning for students</span>
+    <h1>Build a study routine that actually feels manageable.</h1>
+    <p>StudySmarter helps you build a schedule when you need it the most!</p>
+    <div class="actions">
+      <button onclick="window.location.href='questionnaire.html'">Build Your Schedule</button>
+      <a class="btn btn-secondary" href="dashboard.html">View Dashboard</a>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card floaty">
+        <div class="stat-label">Weekly study goal</div>
+        <div class="stat-value">12 hrs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tasks completed</div>
+        <div class="stat-value">18</div>
+      </div>
+      <div class="stat-card floaty">
+        <div class="stat-label">Average focus score</div>
+        <div class="stat-value">92%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Upcoming deadlines</div>
+        <div class="stat-value">4</div>
+      </div>
+    </div>
+  </section>
 
-            <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="dashboard.html">Student Dashboard</a></li>
-                <li><a href="studyplan.html">Generated Study Plan</a></li>
-                <li><a href="progress.html">Progress Tracking</a></li>
-                <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
-                <li><a href="settings.html">Settings</a></li>
-                <li><a href="help.html">Help</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h2>Home</h2>
-
-        <button onclick="questionnaire()">Build Your Schedule</button>
-
-        <script>
-            function questionnaire() {
-                window.location.replace("questionnaire.html");
-            }
-        </script>
-        
-    </main>
-
-    <footer>
-
-        <nav class="navbar navbar-default navbar-center">
-
-            <section class="col-md-12" style="text-align: center;">
-
-                <p>http://localhost:63342/capstoneproj/home.html?_ijt=urhlc0e8n1im9vkv8c2m0nlovv&_ij_reload=RELOAD_ON_SAVE<br>
-                    1-800-1234-567<br>
-                    1234 Street Rd <br>
-                    8am-5pm Mon-Fri<br>
-
-
-
-
-
-                <div id="social">
-
-
-                </div>
-            </section>
-
-        </nav>
-
-
-    </footer>
-
-
-
+  <section class="panel reveal delay-1" data-reveal style="margin-top: 22px;">
+    <h2 class="section-title">Everything in one place</h2>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <span>Smart Planner</span>
+        <h3>Auto-generated study blocks</h3>
+        <p>Create balanced sessions around classes, deadlines, and your preferred times to focus.</p>
+      </article>
+      <article class="feature-card">
+        <span>Progress Insights</span>
+        <h3>Visual performance tracking</h3>
+        <p>See completion trends, weekly momentum, and where your schedule needs attention.</p>
+      </article>
+      <article class="feature-card">
+        <span>Task Focus</span>
+        <h3>Priority-based task details</h3>
+        <p>Organize upcoming work with cleaner layouts, better hierarchy, and a clearer workflow.</p>
+      </article>
+      <article class="feature-card">
+        <span>Custom Settings</span>
+        <h3>Tailored notifications</h3>
+        <p>Adjust reminders, break length, workload intensity, and study preferences in one screen.</p>
+      </article>
+    </div>
+  </section>
+</main>
+<footer>
+  <nav>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-title">StudySmarter</div>
+        <p></p>
+      </div>
+      <div>
+        <div class="footer-title">Contact</div>
+        <p>support@studysmarter.edu<br>+1 (800) 1234-567</p>
+      </div>
+      <div>
+        <div class="footer-title">Hours</div>
+        <p>8:00 a.m. – 5:00 p.m.<br>Monday – Friday</p>
+      </div>
+    </div>
+  </nav>
+</footer>
+<script src="src/ui.js" defer></script>
 </body>
 </html>

@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progress</title>
-    <link rel="stylesheet" href="src/nav-style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySmarter | Progress</title>
+  <link rel="stylesheet" href="src/nav-style.css">
 </head>
 <body>
-<header>
-    <nav>
-
-        <ul class="nav-links">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="dashboard.html">Student Dashboard</a></li>
-            <li><a href="studyplan.html">Generated Study Plan</a></li>
-            <li><a href="progress.html">Progress Tracking</a></li>
-            <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
-            <li><a href="settings.html">Settings</a></li>
-            <li><a href="help.html">Help</a></li>
-        </ul>
-    </nav>
-</header>
+<header><nav><ul class="nav-links">
+  <li><a href="home.html">Home</a></li><li><a href="dashboard.html">Student Dashboard</a></li><li><a href="studyplan.html">Generated Study Plan</a></li><li><a href="progress.html">Progress Tracking</a></li><li><a href="taskdetail.html">Schedule & Task Detail</a></li><li><a href="settings.html">Settings</a></li><li><a href="help.html">Help</a></li>
+</ul></nav></header>
 <main>
-    <h2>Progress</h2>
+  <section class="hero reveal" data-reveal>
+    <span class="kicker">Progress Tracking</span>
+    <h1>Track momentum visually</h1>
+    <p></p>
+  </section>
+  <section class="cards-grid" style="margin-top:22px;">
+    <div class="panel reveal delay-1" data-reveal>
+      <h3>Assignments</h3>
+      <div class="progress-bar" style="--value: 78%;"><span></span></div>
+      <p style="margin-top:12px;">7 of 9 tasks completed this week.</p>
+    </div>
+    <div class="panel reveal delay-2" data-reveal>
+      <h3>Study Hours</h3>
+      <div class="progress-bar" style="--value: 65%;"><span></span></div>
+      <p style="margin-top:12px;">8 of 12 target hours reached.</p>
+    </div>
+    <div class="panel reveal delay-3" data-reveal>
+      <h3>Goal Completion</h3>
+      <div class="progress-bar" style="--value: 84%;"><span></span></div>
+      <p style="margin-top:12px;">Semester GPA goal is on track.</p>
+    </div>
+  </section>
 </main>
-
-
+<script src="src/ui.js" defer></script>
 </body>
 </html>
