@@ -5,6 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StudySmarter | Task Detail</title>
   <link rel="stylesheet" href="src/nav-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .calendar{
+            width: 1000px;
+            height: 370px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calender header{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .calender header button{
+            background: #d4d6d4;
+            border: none;
+            padding: 13px 13px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .calender header h2{
+            font-size: 20px;
+        }
+
+        .day-names, .days{
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+        }
+
+        .day-names div{
+            padding: 10px 0;
+            font-weight: bold;
+        }
+
+        .days div{
+            padding: 10px;
+            margin: 2px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .days div:hover{
+            background: #0c0a0a;
+            color: #fff;
+        }
+
+        .today{
+            background: #0eec0e;
+        }
+
+        .empty:hover{
+            background: #fff !important;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 <header><nav><ul class="nav-links">
@@ -33,6 +104,75 @@
       <p>Due Sunday · Estimated 25 minutes · Improve transitions and clean up references.</p>
     </article>
   </section>
+
+  <div class="calendar">
+        <header>
+            <button onclick="prevMonth()"><i class="fas fa-arrow-left"></i></button>
+            <h2 id="monthYear">July</h2>
+            <button onclick="nextMonth()"><i class="fas fa-arrow-right"></i></button>
+        </header>
+        <div class="day-names">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="days" id="calendarDays">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+        </div>
+    </div>
+    <script>
+        const monthYear = document.getElementById("monthYear");
+        const calendarDays = document.getElementById("calendarDays");
+        let date = new Date();
+
+        function renderCalendar() {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+
+            const firstDay = new Date(year, month, 1).getDate();
+            const lastDate = new Date(year, month+1, 0).getDate();
+
+
+            calendarDays.innerHTML = "";
+            monthYear.innerText = `${date.toLocaleString("default", {
+                month: "long",
+            })} ${year}`;
+
+            for (let i = 0; i < firstDay; i++) {
+                calendarDays.innerHTML += `<div class="empty"></div>`
+
+            }
+
+            for (let d = 1; d <= lastDate; d++) {
+                const today = new Date();
+                const isToday = d === today.getDate() && year === today.getFullYear() && month === today.getMonth();
+
+                calendarDays.innerHTML += `<div class="${isToday ? "today" : ""}">${d}</div>`;
+            }
+        }
+
+        function prevMonth(){
+            date.setMonth(date.getMonth() -1);
+            renderCalendar();
+        }
+
+        function nextMonth(){
+            date.setMonth(date.getMonth() +1);
+            renderCalendar();
+        }
+
+        renderCalendar();
+    </script>
 </main>
 <script src="src/ui.js" defer></script>
 </body>
