@@ -8,49 +8,235 @@
   <link rel="stylesheet" href="src/dropdown.css">
 </head>
 <body>
-<header><nav><ul class="nav-links">
-  <li><a href="home.html">Home</a></li><li><a href="dashboard.html">Student Dashboard</a></li><li><a href="studyplan.html">Generated Study Plan</a></li><li><a href="progress.html">Progress Tracking</a></li><li><a href="taskdetail.html">Schedule & Task Detail</a></li><li><a href="settings.html">Settings</a></li><li><a href="help.html">Help</a></li>
-</ul></nav></header>
+
+<script>
+  if (!localStorage.getItem("token")) {
+    window.location.href = "index.html";
+  }
+</script>
+
+<header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="dashboard.html">Student Dashboard</a></li>
+      <li><a href="studyplan.html">Generated Study Plan</a></li>
+      <li><a href="progress.html">Progress Tracking</a></li>
+      <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="help.html">Help</a></li>
+    </ul>
+  </nav>
+</header>
+
 <main>
   <section class="hero reveal" data-reveal>
     <span class="kicker">Settings</span>
     <h1>Customize how you study</h1>
-    <p></p>
+    <p>Save your preferences so the app feels more personalized and easier to use.</p>
   </section>
 </main>
+
 <div class="container reveal delay-1" data-reveal>
   <div class="form-shell">
     <div class="form-grid">
-      <div class="field"><label for="name">Full Name</label><input type="text" id="name" placeholder="Alex Johnson"></div>
-      <div class="field"><label for="email">Email Address</label><input type="email" id="email" placeholder="alex@email.com"></div>
-      <div class="field"><label for="university">University</label><input type="text" id="university" placeholder="Example University"></div>
-      <div class="field"><label for="major">Major</label><input type="text" id="major" placeholder="Computer Information Technology"></div>
-      <div class="field"><label for="hours">Preferred Study Hours per Day</label><select id="hours"><option>1 hr</option><option>2 hrs</option><option>3 hrs</option><option>4 hrs</option></select></div>
-      <div class="field"><label for="break_length">Break Duration</label><select id="break_length"><option>5 minutes</option><option>10 minutes</option><option>15 minutes</option><option>30 minutes</option></select></div>
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Alex Johnson">
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="alex@email.com">
+      </div>
+
+      <div class="field">
+        <label for="university">University</label>
+        <input type="text" id="university" placeholder="Example University">
+      </div>
+
+      <div class="field">
+        <label for="major">Major</label>
+        <input type="text" id="major" placeholder="Computer Information Technology">
+      </div>
+
+      <div class="field">
+        <label for="hours">Preferred Study Hours per Day</label>
+        <select id="hours">
+          <option>1 hr</option>
+          <option>2 hrs</option>
+          <option>3 hrs</option>
+          <option>4 hrs</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="break_length">Break Duration</label>
+        <select id="break_length">
+          <option>5 minutes</option>
+          <option>10 minutes</option>
+          <option>15 minutes</option>
+          <option>30 minutes</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="theme">Theme Preference</label>
+        <select id="theme">
+          <option>System</option>
+          <option>Dark</option>
+          <option>Light</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="start_page">Preferred Start Page</label>
+        <select id="start_page">
+          <option>Home</option>
+          <option>Dashboard</option>
+          <option>Study Plan</option>
+          <option>Progress</option>
+          <option>Task Detail</option>
+        </select>
+      </div>
+
       <div class="full">
         <label>Notification Preferences</label>
         <div class="checkbox-grid">
-          <label class="checkbox-pill"><input type="checkbox"> Study session reminders</label>
-          <label class="checkbox-pill"><input type="checkbox"> Assignment due date alerts</label>
-          <label class="checkbox-pill"><input type="checkbox"> Weekly progress reports</label>
-          <label class="checkbox-pill"><input type="checkbox"> Goal achievement notifications</label>
+          <label class="checkbox-pill"><input type="checkbox" name="notifications" value="Study session reminders"> Study session reminders</label>
+          <label class="checkbox-pill"><input type="checkbox" name="notifications" value="Assignment due date alerts"> Assignment due date alerts</label>
+          <label class="checkbox-pill"><input type="checkbox" name="notifications" value="Weekly progress reports"> Weekly progress reports</label>
+          <label class="checkbox-pill"><input type="checkbox" name="notifications" value="Goal achievement notifications"> Goal achievement notifications</label>
         </div>
       </div>
+
       <div class="full">
         <label>Workload Intensity</label>
         <div class="checkbox-grid">
-          <label class="checkbox-pill"><input type="radio" name="intensity"> Light</label>
-          <label class="checkbox-pill"><input type="radio" name="intensity"> Moderate</label>
-          <label class="checkbox-pill"><input type="radio" name="intensity"> Intensive</label>
+          <label class="checkbox-pill"><input type="radio" name="intensity" value="Light"> Light</label>
+          <label class="checkbox-pill"><input type="radio" name="intensity" value="Moderate"> Moderate</label>
+          <label class="checkbox-pill"><input type="radio" name="intensity" value="Intensive"> Intensive</label>
         </div>
       </div>
     </div>
+
     <div class="form-actions">
-      <p class="helper">Changes are styled as a polished settings panel with stronger visual hierarchy.</p>
-      <button type="button">Save Preferences</button>
+      <p class="helper" id="settings-message">Your settings will be loaded and saved automatically through the backend.</p>
+      <div class="actions">
+        <button type="button" onclick="saveSettings()">Save Preferences</button>
+        <button type="button" class="secondary-btn" onclick="logoutUser()">Log Out</button>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  function getCheckedValues(name) {
+    return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map((cb) => cb.value);
+  }
+
+  function setCheckedValues(name, values) {
+    const normalized = Array.isArray(values) ? values : [];
+    document.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      input.checked = normalized.includes(input.value);
+    });
+  }
+
+  function setRadioValue(name, value) {
+    document.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      input.checked = input.value === value;
+    });
+  }
+
+  async function loadSettings() {
+    const token = localStorage.getItem("token");
+    const message = document.getElementById("settings-message");
+
+    try {
+      const response = await fetch("http://localhost:3000/settings", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        message.textContent = data.message || "Failed to load settings.";
+        return;
+      }
+
+      document.getElementById("name").value = data.name || "";
+      document.getElementById("email").value = data.email || "";
+      document.getElementById("university").value = data.university || "";
+      document.getElementById("major").value = data.major || "";
+      document.getElementById("hours").value = data.hours || "2 hrs";
+      document.getElementById("break_length").value = data.break_length || "10 minutes";
+      document.getElementById("theme").value = data.theme || "System";
+      document.getElementById("start_page").value = data.start_page || "Home";
+
+      setCheckedValues("notifications", data.notifications || []);
+      setRadioValue("intensity", data.intensity || "Moderate");
+
+      message.textContent = "Settings loaded successfully.";
+    } catch (error) {
+      console.error(error);
+      message.textContent = "Unable to connect to the server.";
+    }
+  }
+
+  async function saveSettings() {
+    const token = localStorage.getItem("token");
+    const message = document.getElementById("settings-message");
+
+    const data = {
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      university: document.getElementById("university").value.trim(),
+      major: document.getElementById("major").value.trim(),
+      hours: document.getElementById("hours").value,
+      break_length: document.getElementById("break_length").value,
+      notifications: getCheckedValues("notifications"),
+      intensity: document.querySelector('input[name="intensity"]:checked')?.value || "Moderate",
+      theme: document.getElementById("theme").value,
+      start_page: document.getElementById("start_page").value
+    };
+
+    try {
+      message.textContent = "Saving settings...";
+
+      const response = await fetch("http://localhost:3000/settings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        message.textContent = result.message || "Failed to save settings.";
+        return;
+      }
+
+      message.textContent = result.message || "Settings saved successfully.";
+      localStorage.setItem("userSettings", JSON.stringify(data));
+    } catch (error) {
+      console.error(error);
+      message.textContent = "Unable to connect to the server.";
+    }
+  }
+
+  function logoutUser() {
+    localStorage.clear();
+    window.location.href = "index.html";
+  }
+
+  loadSettings();
+</script>
+
 <script src="src/ui.js" defer></script>
 </body>
 </html>

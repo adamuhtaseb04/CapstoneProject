@@ -10,18 +10,71 @@
 <header><nav><ul class="nav-links">
   <li><a href="home.html">Home</a></li><li><a href="dashboard.html">Student Dashboard</a></li><li><a href="studyplan.html">Generated Study Plan</a></li><li><a href="progress.html">Progress Tracking</a></li><li><a href="taskdetail.html">Schedule & Task Detail</a></li><li><a href="settings.html">Settings</a></li><li><a href="help.html">Help</a></li>
 </ul></nav></header>
+
 <main>
   <section class="hero reveal" data-reveal>
     <span class="kicker">Help Center</span>
     <h1>Support that is easy to scan</h1>
-    <p></p>
+    <p id="help-summary"></p>
   </section>
+
   <section class="feature-grid" style="margin-top:22px;">
-    <article class="feature-card reveal delay-1" data-reveal><span>Getting Started</span><h3>Create your first study plan</h3><p>Use the questionnaire to enter courses, preferred study times, and goals.</p></article>
-    <article class="feature-card reveal delay-2" data-reveal><span>Managing Tasks</span><h3>Update schedules fast</h3><p>Open task details to adjust priorities, track due dates, and monitor completion.</p></article>
-    <article class="feature-card reveal delay-3" data-reveal><span>Notifications</span><h3>Customize reminders</h3><p>Set your workload intensity, break duration, and weekly progress alerts in Settings.</p></article>
+    <article class="feature-card reveal delay-1" data-reveal>
+      <span>Getting Started</span>
+      <h3>Create your first study plan</h3>
+      <p>Use the questionnaire to enter your courses, preferred study times, goals, and study challenges so the system can generate a personalized plan.</p>
+    </article>
+
+    <article class="feature-card reveal delay-2" data-reveal>
+      <span>Managing Tasks</span>
+      <h3>Update schedules fast</h3>
+      <p>Open Schedule & Task Detail to organize study tasks, add events to the calendar, and manage deadlines in one place.</p>
+    </article>
+
+    <article class="feature-card reveal delay-3" data-reveal>
+      <span>Notifications</span>
+      <h3>Customize reminders</h3>
+      <p>Use Settings to save your study preferences, preferred break length, workload intensity, and notification options.</p>
+    </article>
+  </section>
+
+  <section class="panel reveal delay-1" data-reveal style="margin-top:22px;">
+    <h2 class="section-title">Quick Tips</h2>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <span>Tip 1</span>
+        <h3>Start with the questionnaire</h3>
+        <p>Your dashboard, study plan, progress page, and task details work best after completing the questionnaire first.</p>
+      </article>
+
+      <article class="feature-card">
+        <span>Tip 2</span>
+        <h3>Review your study plan weekly</h3>
+        <p>Update your inputs whenever your courses, deadlines, or priorities change so the system stays useful and accurate.</p>
+      </article>
+
+      <article class="feature-card">
+        <span>Tip 3</span>
+        <h3>Use task detail for daily planning</h3>
+        <p>Add events to the calendar and keep your tasks organized to make your weekly schedule easier to follow.</p>
+      </article>
+    </div>
   </section>
 </main>
+
+<script>
+  const data = JSON.parse(localStorage.getItem("studyData") || "{}");
+  const helpSummary = document.getElementById("help-summary");
+
+  if (data.courses || data.goal) {
+    helpSummary.textContent =
+      `This help center supports your current study setup${data.goal ? ` and your goal to ${data.goal.toLowerCase()}` : ""}.`;
+  } else {
+    helpSummary.textContent =
+      "Find quick guidance for building your study plan, managing tasks, and customizing your learning preferences.";
+  }
+</script>
+
 <script src="src/ui.js" defer></script>
 </body>
 </html>

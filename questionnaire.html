@@ -5,8 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StudySmarter | Questionnaire</title>
   <link rel="stylesheet" href="src/dropdown.css">
+  <style>
+      .deadline-builder {
+          display: grid;
+          gap: 14px;
+          margin-top: 8px;
+      }
+
+      .deadline-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr 0.8fr;
+          gap: 12px;
+      }
+
+      .deadline-note {
+          width: 100%;
+          border: 1px solid rgba(148, 163, 184, 0.18);
+          background: rgba(255,255,255,0.06);
+          color: #ecf5ff;
+          border-radius: 16px;
+          padding: 14px 15px;
+          outline: none;
+          font: inherit;
+      }
+
+      .deadline-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: grid;
+          gap: 12px;
+      }
+
+      .deadline-item {
+          display: grid;
+          gap: 10px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 16px;
+          padding: 14px 16px;
+      }
+
+      .deadline-item-header {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          align-items: center;
+          flex-wrap: wrap;
+      }
+
+      .deadline-title {
+          font-weight: 700;
+          color: #eef4ff;
+      }
+
+      .deadline-meta {
+          color: #9cb0ca;
+          font-size: 0.92rem;
+          line-height: 1.6;
+      }
+
+      .deadline-actions {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+      }
+
+      .secondary-btn {
+          background: rgba(255,255,255,0.08);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.12);
+          box-shadow: none;
+      }
+
+      .danger-btn {
+          background: linear-gradient(135deg, #fb7185, #ef4444);
+          color: white;
+      }
+
+      @media (max-width: 760px) {
+          .deadline-grid {
+              grid-template-columns: 1fr;
+          }
+      }
+  </style>
 </head>
 <body>
+<script>
+  if (!localStorage.getItem("token")) {
+    window.location.href = "index.html";
+  }
+</script>
+
 <header>
   <nav>
     <ul class="nav-links">
@@ -20,66 +110,417 @@
     </ul>
   </nav>
 </header>
+
 <div class="container">
   <div class="form-shell reveal" data-reveal>
     <span class="kicker">Schedule Builder</span>
-    <h1>Academic questionnaire</h1>
-    <p></p>
+    <h1>Academic Questionnaire</h1>
+    <p id="questionnaire-summary">Build or update your personalized weekly study plan.</p>
 
     <div class="form-grid">
-      <div class="field"><label for="major">Choose a Major</label><select id="major"><option>CIT</option><option>English</option><option>Math</option><option>History</option></select></div>
-      <div class="field"><label for="year">Choose your Year</label><select id="year"><option>Freshman</option><option>Sophomore</option><option>Junior</option><option>Senior</option></select></div>
-      <div class="full"><label for="courses">Please provide your Courses</label><textarea id="courses" placeholder="Type your courses here"></textarea></div>
-      <div class="field"><label for="study_hours">Hours per week studying</label><select id="study_hours"><option>5 hours</option><option>10 hours</option><option>15 hours</option><option>20 hours</option></select></div>
-      <div class="field"><label for="study_times">Preferred study times</label><select id="study_times"><option>12 a.m. to 4 a.m.</option><option>5 a.m. to 8 a.m.</option><option>8 a.m. to 11:59 a.m.</option><option>12 p.m. to 4 p.m.</option><option>5 p.m. to 8 p.m.</option><option>8 p.m. to 11:59 p.m.</option></select></div>
+      <div class="field">
+        <label for="major">Choose a Major</label>
+        <select id="major">
+          <option>CIT</option>
+          <option>English</option>
+          <option>Math</option>
+          <option>History</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="year">Choose your Year</label>
+        <select id="year">
+          <option>Freshman</option>
+          <option>Sophomore</option>
+          <option>Junior</option>
+          <option>Senior</option>
+        </select>
+      </div>
+
+      <div class="full">
+        <label for="courses">Please provide your Courses</label>
+        <textarea id="courses" placeholder="Type your courses here"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="study_hours">Hours per week studying</label>
+        <select id="study_hours">
+          <option>5 hours</option>
+          <option>10 hours</option>
+          <option>15 hours</option>
+          <option>20 hours</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="sleep_hours">Average sleeping hours per night</label>
+        <select id="sleep_hours">
+          <option>4 hours</option>
+          <option>5 hours</option>
+          <option>6 hours</option>
+          <option>7 hours</option>
+          <option>8 hours</option>
+          <option>9 hours</option>
+          <option>10 hours</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="study_times">Preferred study times</label>
+        <select id="study_times">
+          <option>12 a.m. to 4 a.m.</option>
+          <option>5 a.m. to 8 a.m.</option>
+          <option>8 a.m. to 11:59 a.m.</option>
+          <option>12 p.m. to 4 p.m.</option>
+          <option>5 p.m. to 8 p.m.</option>
+          <option>8 p.m. to 11:59 p.m.</option>
+        </select>
+      </div>
+
       <div class="full">
         <label>Available Days</label>
         <div class="checkbox-grid">
-          <label class="checkbox-pill"><input type="checkbox"> Monday</label>
-          <label class="checkbox-pill"><input type="checkbox"> Tuesday</label>
-          <label class="checkbox-pill"><input type="checkbox"> Wednesday</label>
-          <label class="checkbox-pill"><input type="checkbox"> Thursday</label>
-          <label class="checkbox-pill"><input type="checkbox"> Friday</label>
-          <label class="checkbox-pill"><input type="checkbox"> Saturday</label>
-          <label class="checkbox-pill"><input type="checkbox"> Sunday</label>
+          <label class="checkbox-pill"><input type="checkbox" name="available_days" value="Monday"> Monday</label>
+          <label class="checkbox-pill"><input type="checkbox" name="available_days" value="Tuesday"> Tuesday</label>
+          <label class="checkbox-pill"><input type="checkbox" name="available_days" value="Wednesday"> Wednesday</label>
+          <label class="checkbox-pill"><input type="checkbox" name="available_days" value="Thursday"> Thursday</label>
+          <label class="checkbox-pill"><input type="checkbox" name="available_days" value="Friday"> Friday</label>
+          <label class="checkbox-pill"><input type="checkbox" name="available_days" value="Saturday"> Saturday</label>
+          <label class="checkbox-pill"><input type="checkbox" name="available_days" value="Sunday"> Sunday</label>
         </div>
       </div>
-      <div class="field"><label for="gpa">Target GPA</label><select id="gpa"><option>1.0</option><option>2.0</option><option>3.0</option><option>4.0</option></select></div>
-      <div class="field"><label for="goal">Primary Goal</label><select id="goal"><option>To get a higher GPA</option><option>To pass a class</option><option>To learn better time management</option><option>To graduate</option><option>Other</option></select></div>
-      <div class="full"><label for="dates">Upcoming important dates</label><textarea id="dates" placeholder="Type your dates here"></textarea></div>
+
+      <div class="field">
+        <label for="gpa">Target GPA</label>
+        <select id="gpa">
+          <option>1.0</option>
+          <option>2.0</option>
+          <option>3.0</option>
+          <option>4.0</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="goal">Primary Goal</label>
+        <select id="goal">
+          <option>To get a higher GPA</option>
+          <option>To pass a class</option>
+          <option>To learn better time management</option>
+          <option>To graduate</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="full">
+        <label for="dates">General important dates or extra notes</label>
+        <textarea id="dates" placeholder="Type any extra date notes here"></textarea>
+      </div>
+
+      <div class="full">
+        <label>Structured deadlines</label>
+
+        <div class="deadline-builder">
+          <div class="deadline-grid">
+            <input id="deadline-title" type="text" placeholder="Deadline title">
+            <select id="deadline-type">
+              <option>Quiz</option>
+              <option>Exam</option>
+              <option>Project</option>
+              <option>Assignment</option>
+              <option>Deadline</option>
+            </select>
+            <input id="deadline-date" type="date">
+          </div>
+
+          <textarea id="deadline-note" class="deadline-note" placeholder="Optional note for this deadline"></textarea>
+
+          <div class="actions">
+            <button type="button" onclick="addDeadline()">Add Deadline</button>
+            <button type="button" class="secondary-btn" onclick="clearDeadlineInputs()">Clear Deadline Fields</button>
+          </div>
+
+          <ul id="deadline-list" class="deadline-list"></ul>
+        </div>
+      </div>
+
       <div class="full">
         <label>Preferred study methods</label>
         <div class="checkbox-grid">
-          <label class="checkbox-pill"><input type="checkbox"> Reading & note-taking</label>
-          <label class="checkbox-pill"><input type="checkbox"> Flashcards</label>
-          <label class="checkbox-pill"><input type="checkbox"> Video tutorials</label>
-          <label class="checkbox-pill"><input type="checkbox"> Practice problems</label>
-          <label class="checkbox-pill"><input type="checkbox"> Group study</label>
-          <label class="checkbox-pill"><input type="checkbox"> Mind mapping</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_methods" value="Reading & note-taking"> Reading & note-taking</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_methods" value="Flashcards"> Flashcards</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_methods" value="Video tutorials"> Video tutorials</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_methods" value="Practice problems"> Practice problems</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_methods" value="Group study"> Group study</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_methods" value="Mind mapping"> Mind mapping</label>
         </div>
       </div>
-      <div class="field"><label for="length">Study session length</label><select id="length"><option>1 hr</option><option>2 hr</option><option>3 hr</option><option>4 hr</option></select></div>
-      <div class="field"><label for="break">Break frequency</label><select id="break"><option>Every 15 minutes</option><option>Every 30 minutes</option><option>Every hour</option></select></div>
-      <div class="full"><label for="challenging">Subjects you find challenging</label><textarea id="challenging" placeholder="List subjects or topics you struggle with"></textarea></div>
+
+      <div class="field">
+        <label for="length">Study session length</label>
+        <select id="length">
+          <option>1 hr</option>
+          <option>2 hr</option>
+          <option>3 hr</option>
+          <option>4 hr</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="break">Break frequency</label>
+        <select id="break">
+          <option>Every 15 minutes</option>
+          <option>Every 30 minutes</option>
+          <option>Every hour</option>
+        </select>
+      </div>
+
+      <div class="full">
+        <label for="challenging">Subjects you find challenging</label>
+        <textarea id="challenging" placeholder="List subjects or topics you struggle with"></textarea>
+      </div>
+
       <div class="full">
         <label>Study challenges</label>
         <div class="checkbox-grid">
-          <label class="checkbox-pill"><input type="checkbox"> Procrastination</label>
-          <label class="checkbox-pill"><input type="checkbox"> Focus & concentration</label>
-          <label class="checkbox-pill"><input type="checkbox"> Note organization</label>
-          <label class="checkbox-pill"><input type="checkbox"> Time management</label>
-          <label class="checkbox-pill"><input type="checkbox"> Test anxiety</label>
-          <label class="checkbox-pill"><input type="checkbox"> Memory retention</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_challenges" value="Procrastination"> Procrastination</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_challenges" value="Focus & concentration"> Focus & concentration</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_challenges" value="Note organization"> Note organization</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_challenges" value="Time management"> Time management</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_challenges" value="Test anxiety"> Test anxiety</label>
+          <label class="checkbox-pill"><input type="checkbox" name="study_challenges" value="Memory retention"> Memory retention</label>
         </div>
       </div>
     </div>
 
     <div class="form-actions">
-      <p class="helper"></p>
-      <button id="submit" type="button" onclick="window.location.href='studyplan.html'">Submit</button>
+      <p class="helper" id="questionnaire-message">Complete the form to generate or update your personalized plan.</p>
+      <button id="submit" type="button" onclick="saveData()">Save Questionnaire</button>
     </div>
   </div>
 </div>
+
+<script>
+  let hasExistingQuestionnaire = false;
+  let deadlines = [];
+
+  function getCheckedValues(name) {
+    return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map((cb) => cb.value);
+  }
+
+  function setCheckedValues(name, values) {
+    const normalized = Array.isArray(values) ? values : [];
+    document.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      input.checked = normalized.includes(input.value);
+    });
+  }
+
+  function renderDeadlines() {
+    const list = document.getElementById("deadline-list");
+
+    if (!deadlines.length) {
+      list.innerHTML = `<li class="deadline-item"><div class="deadline-meta">No structured deadlines added yet.</div></li>`;
+      return;
+    }
+
+    list.innerHTML = deadlines.map((deadline, index) => `
+      <li class="deadline-item">
+        <div class="deadline-item-header">
+          <div class="deadline-title">${deadline.title}</div>
+          <div class="deadline-meta">${deadline.type} · ${deadline.due_date}</div>
+        </div>
+        <div class="deadline-meta">${deadline.note || "No extra note."}</div>
+        <div class="deadline-actions">
+          <button type="button" class="danger-btn" onclick="removeDeadline(${index})">Remove</button>
+        </div>
+      </li>
+    `).join("");
+  }
+
+  function clearDeadlineInputs() {
+    document.getElementById("deadline-title").value = "";
+    document.getElementById("deadline-type").value = "Quiz";
+    document.getElementById("deadline-date").value = "";
+    document.getElementById("deadline-note").value = "";
+  }
+
+  function addDeadline() {
+    const title = document.getElementById("deadline-title").value.trim();
+    const type = document.getElementById("deadline-type").value;
+    const due_date = document.getElementById("deadline-date").value;
+    const note = document.getElementById("deadline-note").value.trim();
+
+    if (!title || !due_date) {
+      document.getElementById("questionnaire-message").textContent = "Please enter both a deadline title and date.";
+      return;
+    }
+
+    deadlines.push({ title, type, due_date, note });
+    clearDeadlineInputs();
+    renderDeadlines();
+    document.getElementById("questionnaire-message").textContent = "Deadline added successfully.";
+  }
+
+  function removeDeadline(index) {
+    deadlines.splice(index, 1);
+    renderDeadlines();
+  }
+
+  async function loadExistingQuestionnaire() {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch("http://localhost:3000/questionnaire/latest", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        renderDeadlines();
+        return;
+      }
+
+      const data = await response.json();
+      hasExistingQuestionnaire = true;
+
+      document.getElementById("major").value = data.major || "CIT";
+      document.getElementById("year").value = data.year || "Freshman";
+      document.getElementById("courses").value = data.courses || "";
+      document.getElementById("study_hours").value = data.study_hours || "10 hours";
+      document.getElementById("sleep_hours").value = data.sleep_hours || "8 hours";
+      document.getElementById("study_times").value = data.study_times || "5 p.m. to 8 p.m.";
+      document.getElementById("gpa").value = data.gpa || "3.0";
+      document.getElementById("goal").value = data.goal || "To get a higher GPA";
+      document.getElementById("dates").value = data.dates || "";
+      document.getElementById("length").value = data.length || "2 hr";
+      document.getElementById("break").value = data.break_freq || "Every 30 minutes";
+      document.getElementById("challenging").value = data.challenging || "";
+
+      setCheckedValues("available_days", data.available_days || []);
+      setCheckedValues("study_methods", data.study_methods || []);
+      setCheckedValues("study_challenges", data.study_challenges || []);
+
+      deadlines = Array.isArray(data.deadlines)
+        ? data.deadlines.map(item => ({
+          title: item.title || "",
+          type: item.type || "Deadline",
+          due_date: item.due_date || "",
+          note: item.note || ""
+        }))
+        : [];
+
+      document.getElementById("questionnaire-summary").textContent =
+        "Update your current questionnaire, sleep schedule, deadlines, and priorities to regenerate a smarter AI plan.";
+
+      document.getElementById("submit").textContent = "Save Changes";
+    } catch (error) {
+      console.error(error);
+    }
+
+    renderDeadlines();
+  }
+
+  async function saveData() {
+    const courses = document.getElementById("courses").value.trim();
+    const dates = document.getElementById("dates").value.trim();
+    const challenging = document.getElementById("challenging").value.trim();
+    const token = localStorage.getItem("token");
+    const message = document.getElementById("questionnaire-message");
+
+    if (!token) {
+      alert("Please log in first.");
+      window.location.href = "index.html";
+      return;
+    }
+
+    if (!courses) {
+      message.textContent = "Please enter your courses before submitting.";
+      document.getElementById("courses").focus();
+      return;
+    }
+
+    const data = {
+      major: document.getElementById("major").value,
+      year: document.getElementById("year").value,
+      courses,
+      study_hours: document.getElementById("study_hours").value,
+      sleep_hours: document.getElementById("sleep_hours").value,
+      study_times: document.getElementById("study_times").value,
+      available_days: getCheckedValues("available_days"),
+      gpa: document.getElementById("gpa").value,
+      goal: document.getElementById("goal").value,
+      dates,
+      deadlines,
+      study_methods: getCheckedValues("study_methods"),
+      length: document.getElementById("length").value,
+      breakFreq: document.getElementById("break").value,
+      challenging,
+      study_challenges: getCheckedValues("study_challenges")
+    };
+
+    const url = hasExistingQuestionnaire
+      ? "http://localhost:3000/questionnaire/latest"
+      : "http://localhost:3000/questionnaire";
+
+    const method = hasExistingQuestionnaire ? "PUT" : "POST";
+
+    try {
+      message.textContent = hasExistingQuestionnaire
+        ? "Updating questionnaire, sleep hours, and deadlines..."
+        : "Saving questionnaire, sleep hours, and deadlines...";
+
+      const saveResponse = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      });
+
+      const saveResult = await saveResponse.json();
+
+      if (!saveResponse.ok) {
+        message.textContent = saveResult.message || "Failed to save questionnaire.";
+        return;
+      }
+
+      localStorage.setItem("studyData", JSON.stringify(data));
+
+      message.textContent = "Generating updated AI study plan...";
+
+      const aiResponse = await fetch("http://localhost:3000/generate-study-plan", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const aiResult = await aiResponse.json();
+
+      if (!aiResponse.ok) {
+        message.textContent = aiResult.message || "Failed to generate AI study plan.";
+        return;
+      }
+
+      localStorage.setItem("latestAIStudyPlan", JSON.stringify(aiResult.plan));
+      message.textContent = hasExistingQuestionnaire
+        ? "Questionnaire, sleep hours, deadlines, and AI plan updated successfully."
+        : "Questionnaire, sleep hours, deadlines, and AI plan saved successfully.";
+
+      setTimeout(() => {
+        window.location.href = "studyplan.html";
+      }, 700);
+    } catch (error) {
+      console.error(error);
+      message.textContent = "Unable to connect to the server.";
+    }
+  }
+
+  loadExistingQuestionnaire();
+</script>
+
 <script src="src/ui.js" defer></script>
 </body>
 </html>

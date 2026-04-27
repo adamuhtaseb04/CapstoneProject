@@ -5,27 +5,344 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StudySmarter | Study Plan</title>
   <link rel="stylesheet" href="src/nav-style.css">
+  <style>
+      .plan-history {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: grid;
+          gap: 14px;
+      }
+
+      .plan-card {
+          background: rgba(255,255,255,0.055);
+          border: 1px solid rgba(255,255,255,0.09);
+          border-radius: 18px;
+          padding: 18px;
+          display: grid;
+          gap: 12px;
+      }
+
+      .plan-card.active-plan {
+          border-color: rgba(52,211,153,0.5);
+          box-shadow: 0 0 0 1px rgba(52,211,153,0.12);
+      }
+
+      .plan-card-header {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          align-items: center;
+          flex-wrap: wrap;
+      }
+
+      .plan-card-title {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #eef4ff;
+      }
+
+      .plan-card-meta {
+          color: #9cb0ca;
+          font-size: 0.92rem;
+          line-height: 1.6;
+      }
+
+      .plan-actions {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+      }
+
+      .secondary-btn {
+          background: rgba(255,255,255,0.08);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.12);
+          box-shadow: none;
+      }
+
+      .danger-btn {
+          background: linear-gradient(135deg, #fb7185, #ef4444);
+          color: white;
+      }
+
+      .status-pill {
+          display: inline-flex;
+          width: fit-content;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: rgba(52,211,153,0.12);
+          color: #c6ffef;
+          font-size: 0.82rem;
+          font-weight: 700;
+      }
+
+      .empty-state {
+          color: #9cb0ca;
+          padding: 8px 0;
+      }
+  </style>
 </head>
 <body>
-<header><nav><ul class="nav-links">
-  <li><a href="home.html">Home</a></li><li><a href="dashboard.html">Student Dashboard</a></li><li><a href="studyplan.html">Generated Study Plan</a></li><li><a href="progress.html">Progress Tracking</a></li><li><a href="taskdetail.html">Schedule & Task Detail</a></li><li><a href="settings.html">Settings</a></li><li><a href="help.html">Help</a></li>
-</ul></nav></header>
+
+<script>
+  if (!localStorage.getItem("token")) {
+    window.location.href = "index.html";
+  }
+</script>
+
+<header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="dashboard.html">Student Dashboard</a></li>
+      <li><a href="studyplan.html">Generated Study Plan</a></li>
+      <li><a href="progress.html">Progress Tracking</a></li>
+      <li><a href="taskdetail.html">Schedule & Task Detail</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="help.html">Help</a></li>
+    </ul>
+  </nav>
+</header>
+
 <main>
   <section class="hero reveal" data-reveal>
     <span class="kicker">Generated Study Plan</span>
     <h1>Your weekly schedule, redesigned</h1>
-    <p></p>
+    <p id="studyplan-summary"></p>
   </section>
+
   <section class="panel reveal delay-1" data-reveal style="margin-top:22px;">
-    <h2 class="section-title">Monday to Thursday plan</h2>
-    <div class="timeline">
-      <div class="timeline-item"><h3>Monday · 5:00 p.m.</h3><p>Database Systems review, chapter summary, and 20-minute practice quiz.</p></div>
-      <div class="timeline-item"><h3>Tuesday · 6:30 p.m.</h3><p>Networking lab prep with packet tracing exercises and flashcard review.</p></div>
-      <div class="timeline-item"><h3>Wednesday · 4:30 p.m.</h3><p>Writing block for technical report outline and citation cleanup.</p></div>
-      <div class="timeline-item"><h3>Thursday · 7:00 p.m.</h3><p>Mixed review session focused on weak topics and overdue tasks.</p></div>
+    <div class="actions" style="margin-bottom: 18px;">
+      <button onclick="regeneratePlan()">Regenerate AI Plan</button>
     </div>
+
+    <h2 class="section-title">Active AI Weekly Plan</h2>
+    <div class="timeline" id="weekly-plan"></div>
+  </section>
+
+  <section class="panel reveal delay-2" data-reveal style="margin-top:22px;">
+    <h2 class="section-title">Priority Subjects</h2>
+    <div class="list-clean" id="priority-subjects"></div>
+  </section>
+
+  <section class="panel reveal delay-3" data-reveal style="margin-top:22px;">
+    <h2 class="section-title">Study Tips</h2>
+    <div class="list-clean" id="study-tips"></div>
+  </section>
+
+  <section class="panel reveal delay-3" data-reveal style="margin-top:22px;">
+    <h2 class="section-title">Saved Study Plans</h2>
+    <ul id="plan-history" class="plan-history"></ul>
   </section>
 </main>
+
+<script>
+  let planHistory = [];
+  let activePlan = null;
+
+  async function loadActivePlan() {
+    const token = localStorage.getItem("token");
+    const summary = document.getElementById("studyplan-summary");
+    const weeklyPlan = document.getElementById("weekly-plan");
+    const prioritySubjects = document.getElementById("priority-subjects");
+    const studyTips = document.getElementById("study-tips");
+
+    let planData = null;
+
+    try {
+      const res = await fetch("http://localhost:3000/study-plan/latest", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (res.ok) {
+        planData = await res.json();
+        localStorage.setItem("latestAIStudyPlan", JSON.stringify(planData));
+      }
+    } catch {}
+
+    if (!planData) {
+      planData = JSON.parse(localStorage.getItem("latestAIStudyPlan") || "{}");
+    }
+
+    activePlan = planData;
+
+    if (!planData.summary) {
+      summary.textContent = "No AI study plan found. Complete the questionnaire first.";
+      weeklyPlan.innerHTML = `
+        <div class="timeline-item">
+          <h3>No plan available</h3>
+          <p>Please submit the questionnaire to generate a personalized AI study plan.</p>
+        </div>
+      `;
+      prioritySubjects.innerHTML = `<li>No priority subjects available yet.</li>`;
+      studyTips.innerHTML = `<li>No study tips available yet.</li>`;
+      return;
+    }
+
+    summary.textContent = planData.summary;
+
+    weeklyPlan.innerHTML = "";
+    (planData.weekly_plan || []).forEach((item) => {
+      weeklyPlan.innerHTML += `
+        <div class="timeline-item">
+          <h3>${item.day} · ${item.time}</h3>
+          <p><strong>${item.focus}</strong> — ${item.task}</p>
+        </div>
+      `;
+    });
+
+    prioritySubjects.innerHTML = "";
+    (planData.priority_subjects || []).forEach((subject) => {
+      prioritySubjects.innerHTML += `<li>${subject}</li>`;
+    });
+
+    studyTips.innerHTML = "";
+    (planData.study_tips || []).forEach((tip) => {
+      studyTips.innerHTML += `<li>${tip}</li>`;
+    });
+  }
+
+  async function loadPlanHistory() {
+    const token = localStorage.getItem("token");
+    const list = document.getElementById("plan-history");
+
+    try {
+      const res = await fetch("http://localhost:3000/study-plans", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+      planHistory = Array.isArray(data) ? data : [];
+
+      if (!planHistory.length) {
+        list.innerHTML = `<li class="empty-state">No saved AI study plans yet.</li>`;
+        return;
+      }
+
+      let savedPlanCounter = 0;
+
+      list.innerHTML = planHistory.map((plan) => {
+        const label = plan.is_active
+          ? "Active Plan"
+          : `Saved Plan ${++savedPlanCounter}`;
+
+        return `
+          <li class="plan-card ${plan.is_active ? "active-plan" : ""}">
+            <div class="plan-card-header">
+              <div class="plan-card-title">${label}</div>
+              <div class="plan-card-meta">${new Date(plan.created_at).toLocaleString()}</div>
+            </div>
+
+            ${plan.is_active ? `<div class="status-pill">Currently Selected</div>` : ""}
+
+            <div class="plan-card-meta">
+              ${plan.summary || "No summary available."}
+            </div>
+
+            <div class="plan-actions">
+              ${!plan.is_active ? `<button class="secondary-btn" onclick="activatePlan(${plan.id})">Use This Plan</button>` : ""}
+              <button class="danger-btn" onclick="deletePlan(${plan.id})">Delete</button>
+            </div>
+          </li>
+        `;
+      }).join("");
+    } catch {
+      list.innerHTML = `<li class="empty-state">Unable to load saved study plans.</li>`;
+    }
+  }
+
+  async function regeneratePlan() {
+    const token = localStorage.getItem("token");
+    const summary = document.getElementById("studyplan-summary");
+
+    try {
+      summary.textContent = "Regenerating AI study plan...";
+
+      const res = await fetch("http://localhost:3000/generate-study-plan", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        summary.textContent = data.message || "Failed to regenerate AI study plan.";
+        return;
+      }
+
+      localStorage.setItem("latestAIStudyPlan", JSON.stringify(data.plan));
+      await loadActivePlan();
+      await loadPlanHistory();
+    } catch {
+      summary.textContent = "Unable to connect to the server.";
+    }
+  }
+
+  async function activatePlan(id) {
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await fetch(`http://localhost:3000/study-plan/${id}/activate`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Failed to activate study plan.");
+        return;
+      }
+
+      await loadActivePlan();
+      await loadPlanHistory();
+    } catch {
+      alert("Unable to connect to the server.");
+    }
+  }
+
+  async function deletePlan(id) {
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await fetch(`http://localhost:3000/study-plan/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Failed to delete study plan.");
+        return;
+      }
+
+      await loadActivePlan();
+      await loadPlanHistory();
+    } catch {
+      alert("Unable to connect to the server.");
+    }
+  }
+
+  async function initStudyPlanPage() {
+    await loadActivePlan();
+    await loadPlanHistory();
+  }
+
+  initStudyPlanPage();
+</script>
+
 <script src="src/ui.js" defer></script>
 </body>
 </html>
